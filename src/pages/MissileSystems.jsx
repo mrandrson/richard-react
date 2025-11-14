@@ -1,3 +1,5 @@
+import assetPath from '../utils/assetPath';
+
 function MissileSystems() {
   return (
     <div>
@@ -22,12 +24,12 @@ function MissileSystems() {
 
       <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '20px' }}>
         <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src="/assets/files/rocketpath.png" alt="Missile Path" style={{ width: 'auto', height: '400px', maxWidth: '100%' }} />
+          <img src={assetPath('rocketpath.png')} alt="Missile Path" style={{ width: 'auto', height: '400px', maxWidth: '100%' }} />
           <p>Figure 1: Missile Path</p>
         </div>
 
         <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src="/assets/files/rocketspeed.png" alt="Missile Velocity" style={{ width: 'auto', height: '400px', maxWidth: '100%' }} />
+          <img src={assetPath('rocketspeed.png')} alt="Missile Velocity" style={{ width: 'auto', height: '400px', maxWidth: '100%' }} />
           <p>Figure 2: Missile Velocity</p>
         </div>
       </div>
@@ -36,7 +38,7 @@ function MissileSystems() {
 
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         <video controls style={{ width: '100%', maxWidth: '600px', height: 'auto' }}>
-          <source src="/assets/files/aerospace-tracking.mp4" type="video/mp4" />
+          <source src={assetPath('aerospace-tracking.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>

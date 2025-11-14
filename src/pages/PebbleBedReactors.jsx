@@ -1,4 +1,5 @@
 import VtiViewer from '../components/VtiViewer';
+import assetPath from '../utils/assetPath';
 
 function PebbleBedReactors() {
   return (
@@ -13,16 +14,16 @@ function PebbleBedReactors() {
 
       <div style={{ textAlign: 'center', margin: '30px 0' }}>
         <iframe
-          src="/assets/files/Anderson_R_poster_final.pdf"
+          src={assetPath('Anderson_R_poster_final.pdf')}
           style={{ width: '100%', height: '90vh' }}
           title="WDTS SULI Pebble Bed Poster"
         ></iframe>
         <p>
-          <a href="/assets/files/Anderson_R_poster_final.pdf" download>
+          <a href={assetPath('Anderson_R_poster_final.pdf')} download>
             Download the poster (PDF)
           </a>{' '}
           |{' '}
-          <a href="/assets/files/Anderson_R_poster_final.pptx" download>
+          <a href={assetPath('Anderson_R_poster_final.pptx')} download>
             Original PPTX
           </a>
         </p>

@@ -1,3 +1,5 @@
+import assetPath from '../utils/assetPath';
+
 function PlanetesimalProject() {
   return (
     <div>
@@ -20,7 +22,7 @@ function PlanetesimalProject() {
 
       <div style={{ textAlign: 'center', margin: '30px 0' }}>
         <img
-          src="/assets/files/massplot.png"
+          src={assetPath('massplot.png')}
           alt="Larson vs. Shu enclosed mass plot"
           style={{ width: '100%', height: 'auto', maxWidth: '900px' }}
         />
@@ -35,12 +37,12 @@ function PlanetesimalProject() {
 
       <div style={{ textAlign: 'center' }}>
         <iframe
-          src="/assets/files/TAOAPS_Poster_3-3.pdf"
+          src={assetPath('TAOAPS_Poster_3-3.pdf')}
           style={{ width: '100%', height: '600px' }}
           title="TAOAPS Poster PDF"
         ></iframe>
         <p>
-          <a href="/assets/files/TAOAPS_Poster_3-3.pdf" target="_blank" rel="noreferrer">
+          <a href={assetPath('TAOAPS_Poster_3-3.pdf')} target="_blank" rel="noreferrer">
             Download the TAOAPS poster
           </a>{' '}
           if the preview does not load.

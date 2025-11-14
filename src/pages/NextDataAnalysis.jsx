@@ -1,3 +1,5 @@
+import assetPath from '../utils/assetPath';
+
 function NextDataAnalysis() {
   return (
     <div>
@@ -13,12 +15,12 @@ function NextDataAnalysis() {
 
       <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '20px' }}>
         <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src="/assets/files/3031S1Fit.png" alt="Example S1 Fit" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
+          <img src={assetPath('3031S1Fit.png')} alt="Example S1 Fit" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
           <p>Figure 1: S1 Fit</p>
         </div>
 
         <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src="/assets/files/3031S2Fit.png" alt="Example S2 Fit" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
+          <img src={assetPath('3031S2Fit.png')} alt="Example S2 Fit" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
           <p>Figure 2: S2 Fit</p>
         </div>
       </div>
@@ -32,10 +34,10 @@ function NextDataAnalysis() {
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, textAlign: 'center', minWidth: '280px' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 0, justifyContent: 'center' }}>
-            <img src="/assets/files/quadrantfit1.png" alt="Quadrant 1" style={{ width: '40%', height: 'auto', margin: 0 }} />
-            <img src="/assets/files/quadrantfit2.png" alt="Quadrant 2" style={{ width: '40%', height: 'auto', margin: 0 }} />
-            <img src="/assets/files/quadrantfit3.png" alt="Quadrant 3" style={{ width: '40%', height: 'auto', margin: 0 }} />
-            <img src="/assets/files/quadrantfit4.png" alt="Quadrant 4" style={{ width: '40%', height: 'auto', margin: 0 }} />
+            <img src={assetPath('quadrantfit1.png')} alt="Quadrant 1" style={{ width: '40%', height: 'auto', margin: 0 }} />
+            <img src={assetPath('quadrantfit2.png')} alt="Quadrant 2" style={{ width: '40%', height: 'auto', margin: 0 }} />
+            <img src={assetPath('quadrantfit3.png')} alt="Quadrant 3" style={{ width: '40%', height: 'auto', margin: 0 }} />
+            <img src={assetPath('quadrantfit4.png')} alt="Quadrant 4" style={{ width: '40%', height: 'auto', margin: 0 }} />
           </div>
         </div>
 

@@ -1,3 +1,5 @@
+import assetPath from '../utils/assetPath';
+
 function Home() {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
@@ -27,7 +29,7 @@ function Home() {
 
         <p>
           View my{' '}
-          <a href="/assets/files/resume.pdf" target="_blank" rel="noreferrer">
+          <a href={assetPath('resume.pdf')} target="_blank" rel="noreferrer">
             <strong>CV here</strong>
           </a>
           .
@@ -36,7 +38,7 @@ function Home() {
 
       <div style={{ flex: 1, textAlign: 'center', minWidth: '260px' }}>
         <img
-          src="/assets/files/RichardAnderson_17436.png"
+          src={assetPath('RichardAnderson_17436.png')}
           alt="Richard Anderson"
           style={{ maxWidth: '75%', height: 'auto' }}
         />

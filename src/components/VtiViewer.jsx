@@ -8,8 +8,21 @@ import vtkVolume from 'vtk.js/Sources/Rendering/Core/Volume';
 import vtkColorTransferFunction from 'vtk.js/Sources/Rendering/Core/ColorTransferFunction';
 import vtkPiecewiseFunction from 'vtk.js/Sources/Common/DataModel/PiecewiseFunction';
 import vtkDataArray from 'vtk.js/Sources/Common/Core/DataArray';
+import assetPath from '../utils/assetPath';
 
 const dataUrl = `${import.meta.env.BASE_URL}data/geom.vti`;
+
+const supportsWebGL2 = () => {
+  if (typeof document === 'undefined') {
+    return true;
+  }
+  const canvas = document.createElement('canvas');
+  const gl = canvas.getContext('webgl2');
+  if (gl && typeof gl.getParameter === 'function') {
+    return true;
+  }
+  return false;
+};
 
 function convertCellDataToPointData(imageData) {
   const cellData = imageData.getCellData();
@@ -77,10 +90,18 @@ function VtiViewer({ height = 600 }) {
   const containerRef = useRef(null);
   const contextRef = useRef(null);
   const [error, setError] = useState(null);
+  const [noWebGL2, setNoWebGL2] = useState(false);
+  const fallbackImageSrc = assetPath('triso_raytrace.png');
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) {
+      return undefined;
+    }
+
+    if (!supportsWebGL2()) {
+      setNoWebGL2(true);
+      setError('webgl2');
       return undefined;
     }
 
@@ -214,9 +235,25 @@ return (
           padding: '16px',
         }}
       >
-        <p style={{ color: '#b00020', fontWeight: 600, marginBottom: '8px' }}>{error}</p>
-        <p style={{ fontSize: '14px', color: '#555' }}>
-          Please download the poster above for full details.
+        <img
+          src={fallbackImageSrc}
+          alt="Packed TRISO particle rendering"
+          style={{
+            width: '100%',
+            height: 'auto',
+            maxWidth: '500px',
+            borderRadius: '8px',
+            boxShadow: '0 8px 20px rgba(0,0,0,0.1)',
+            marginBottom: '12px',
+          }}
+        />
+        <p style={{ color: '#0d0d0d', fontWeight: 600, marginBottom: '6px' }}>
+          {noWebGL2 ? 'Interactive volume view requires WebGL 2.' : 'Unable to load the interactive reactor geometry.'}
+        </p>
+        <p style={{ fontSize: '14px', color: '#555', margin: 0 }}>
+          {noWebGL2
+            ? "Enable WebGL 2 in Safari’s Develop menu or open this page in Chrome/Firefox to explore the live geometry."
+            : 'Please download the poster above for full details while we investigate the issue.'}
         </p>
       </div>
     ) : null}
