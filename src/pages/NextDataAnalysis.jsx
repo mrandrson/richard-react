@@ -3,8 +3,8 @@ import assetPath from '../utils/assetPath';
 function NextDataAnalysis() {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ fontSize: '32px', margin: 0, color: '#111' }}>Analysis of NEXT Experiment Data</h1>
+      <div className="page-header">
+        <h1>Analysis of NEXT Experiment Data</h1>
       </div>
 
       <p>
@@ -13,16 +13,16 @@ function NextDataAnalysis() {
         S1 and S2 pulses in the NEXT data set.
       </p>
 
-      <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '20px' }}>
-        <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src={assetPath('3031S1Fit.png')} alt="Example S1 Fit" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
-          <p>Figure 1: S1 Fit</p>
-        </div>
+      <div className="media-grid">
+        <figure className="media-card">
+          <img src={assetPath('3031S1Fit.png')} alt="Example S1 Fit" />
+          <figcaption>Figure 1: S1 Fit</figcaption>
+        </figure>
 
-        <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src={assetPath('3031S2Fit.png')} alt="Example S2 Fit" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
-          <p>Figure 2: S2 Fit</p>
-        </div>
+        <figure className="media-card">
+          <img src={assetPath('3031S2Fit.png')} alt="Example S2 Fit" />
+          <figcaption>Figure 2: S2 Fit</figcaption>
+        </figure>
       </div>
 
       <p>
@@ -31,17 +31,17 @@ function NextDataAnalysis() {
         plane.
       </p>
 
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', flexWrap: 'wrap' }}>
-        <div style={{ flex: 1, textAlign: 'center', minWidth: '280px' }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 0, justifyContent: 'center' }}>
-            <img src={assetPath('quadrantfit1.png')} alt="Quadrant 1" style={{ width: '40%', height: 'auto', margin: 0 }} />
-            <img src={assetPath('quadrantfit2.png')} alt="Quadrant 2" style={{ width: '40%', height: 'auto', margin: 0 }} />
-            <img src={assetPath('quadrantfit3.png')} alt="Quadrant 3" style={{ width: '40%', height: 'auto', margin: 0 }} />
-            <img src={assetPath('quadrantfit4.png')} alt="Quadrant 4" style={{ width: '40%', height: 'auto', margin: 0 }} />
+      <div className="media-grid">
+        <div className="media-card">
+          <div className="quadrant-grid">
+            <img src={assetPath('quadrantfit1.png')} alt="Quadrant 1" />
+            <img src={assetPath('quadrantfit2.png')} alt="Quadrant 2" />
+            <img src={assetPath('quadrantfit3.png')} alt="Quadrant 3" />
+            <img src={assetPath('quadrantfit4.png')} alt="Quadrant 4" />
           </div>
         </div>
 
-        <div style={{ flex: 1, maxWidth: '500px', minWidth: '280px' }}>
+        <div>
           <p>
             Since the time between S1 and S2 pulses is approximately proportional to the z-distance between them, we can
             estimate the charge over time for each x-y bin. The histograms show S2 area versus drift time with a red fit to{' '}

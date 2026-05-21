@@ -13,10 +13,10 @@ function Layout() {
   }, [location.pathname]);
 
   return (
-    <div style={{ backgroundColor: '#ffffff', color: '#1e1e1e', minHeight: '100vh' }}>
+    <div className="site-shell">
       <Header />
       <main className="page-content" aria-label="Content">
-        <div className="wrapper">
+        <div className="wrapper content-card">
           <Outlet />
         </div>
       </main>

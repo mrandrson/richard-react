@@ -3,8 +3,8 @@ import assetPath from '../utils/assetPath';
 function PlanetesimalProject() {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ fontSize: '32px', margin: 0, color: '#111' }}>Capture Rate of Planetesimals in Collapsing Proto-stars</h1>
+      <div className="page-header">
+        <h1>Capture Rate of Planetesimals in Collapsing Proto-stars</h1>
       </div>
 
       <p>
@@ -20,14 +20,13 @@ function PlanetesimalProject() {
         for modelling the collapse of the protostar. Using this model, we obtain expressions for the enclosed mass.
       </p>
 
-      <div style={{ textAlign: 'center', margin: '30px 0' }}>
+      <figure className="media-card">
         <img
           src={assetPath('massplot.png')}
           alt="Larson vs. Shu enclosed mass plot"
-          style={{ width: '100%', height: 'auto', maxWidth: '900px' }}
         />
-        <p>Figure: Comparison of enclosed mass histories from Larson (solid) and Shu (dashed) solutions.</p>
-      </div>
+        <figcaption>Comparison of enclosed mass histories from Larson (solid) and Shu (dashed) solutions.</figcaption>
+      </figure>
 
       <p>
         Using these solutions, we can obtain an expression for the potential inside the cloud. This enables us to perform
@@ -35,10 +34,10 @@ function PlanetesimalProject() {
         are captured by the collapsing protostar.
       </p>
 
-      <div style={{ textAlign: 'center' }}>
+      <div>
         <iframe
           src={assetPath('TAOAPS_Poster_3-3.pdf')}
-          style={{ width: '100%', height: '600px' }}
+          className="document-frame"
           title="TAOAPS Poster PDF"
         ></iframe>
         <p>

@@ -8,10 +8,16 @@ import PersonalProjects from './pages/PersonalProjects';
 import PebbleBedReactors from './pages/PebbleBedReactors';
 import Research from './pages/Research';
 import About from './pages/About';
+import SpectralLearning from './pages/SpectralLearning';
+import SpinningPendulum from './pages/SpinningPendulum';
+import NBodySimulation from './pages/NBodySimulation';
+import QuantumWavePacket from './pages/QuantumWavePacket';
 
 function App() {
+  const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -21,6 +27,10 @@ function App() {
           <Route path="personalprojects" element={<PersonalProjects />} />
           <Route path="pebblebed" element={<PebbleBedReactors />} />
           <Route path="rprojects" element={<Research />} />
+          <Route path="spectrallearning" element={<SpectralLearning />} />
+          <Route path="spinningpendulum" element={<SpinningPendulum />} />
+          <Route path="nbodysimulation" element={<NBodySimulation />} />
+          <Route path="quantumwavepacket" element={<QuantumWavePacket />} />
           <Route path="about" element={<About />} />
           <Route path="*" element={<Home />} />
         </Route>

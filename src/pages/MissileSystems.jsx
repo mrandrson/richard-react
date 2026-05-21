@@ -3,8 +3,8 @@ import assetPath from '../utils/assetPath';
 function MissileSystems() {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ fontSize: '32px', margin: 0, color: '#111' }}>Low Cost Missile Systems Design</h1>
+      <div className="page-header">
+        <h1>Low Cost Missile Systems Design</h1>
       </div>
 
       <p>
@@ -22,22 +22,22 @@ function MissileSystems() {
         coasting phase.
       </p>
 
-      <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '20px' }}>
-        <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src={assetPath('rocketpath.png')} alt="Missile Path" style={{ width: 'auto', height: '400px', maxWidth: '100%' }} />
-          <p>Figure 1: Missile Path</p>
-        </div>
+      <div className="media-grid">
+        <figure className="media-card">
+          <img src={assetPath('rocketpath.png')} alt="Missile Path" />
+          <figcaption>Figure 1: Missile Path</figcaption>
+        </figure>
 
-        <div style={{ textAlign: 'center', flex: 1, minWidth: '300px' }}>
-          <img src={assetPath('rocketspeed.png')} alt="Missile Velocity" style={{ width: 'auto', height: '400px', maxWidth: '100%' }} />
-          <p>Figure 2: Missile Velocity</p>
-        </div>
+        <figure className="media-card">
+          <img src={assetPath('rocketspeed.png')} alt="Missile Velocity" />
+          <figcaption>Figure 2: Missile Velocity</figcaption>
+        </figure>
       </div>
 
       <p>Below is an example of a tracking script locating a triangle based on the trained detection model.</p>
 
-      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-        <video controls style={{ width: '100%', maxWidth: '600px', height: 'auto' }}>
+      <div className="media-card">
+        <video controls>
           <source src={assetPath('aerospace-tracking.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>

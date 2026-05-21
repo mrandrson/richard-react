@@ -1,39 +1,80 @@
 import assetPath from '../utils/assetPath';
+import { Link } from 'react-router-dom';
 
 function PersonalProjects() {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ fontSize: '32px', margin: 0, color: '#111' }}>Personal Projects</h1>
+      <div className="page-header">
+        <h1>Personal Projects</h1>
+        <p>Independent computational physics projects and numerical simulation work.</p>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'flex-start', gap: '20px', flexWrap: 'wrap' }}>
-        <div style={{ flex: 1, textAlign: 'center', minWidth: '280px' }}>
-          <a className="page-link" href={assetPath('Spinning_Pendulum.pdf')} style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>
-            Spinning Pendulum
-          </a>
-          <figure style={{ margin: 0 }}>
-            <img src={assetPath('spinning_pendulum.gif')} alt="Spherical Pendulum Motion" style={{ width: '100%', maxHeight: '400px', objectFit: 'contain' }} />
-            <figcaption style={{ fontSize: '16px', color: '#111', textAlign: 'left', marginTop: '8px' }}>
+      <div className="media-grid">
+        <article className="media-card">
+          <h2>
+            <Link className="page-link" to="/spectrallearning">
+              Spectral Methods and Neural Operators
+            </Link>
+          </h2>
+          <figure>
+            <video autoPlay muted loop playsInline>
+              <source src={assetPath('fno_ns2d_fno.mp4')} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>
+              Fourier neural operator trained as a surrogate for two-dimensional Navier-Stokes vorticity dynamics.
+            </figcaption>
+          </figure>
+        </article>
+
+        <article className="media-card">
+          <h2>
+            <Link className="page-link" to="/quantumwavepacket">
+              Quantum Wave Packet Simulation
+            </Link>
+          </h2>
+          <figure>
+            <video autoPlay muted loop playsInline>
+              <source src={assetPath('quantumwave.mp4')} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>
+              Split-step Fourier simulation of a two-dimensional quantum wave packet scattering from a smooth potential.
+            </figcaption>
+          </figure>
+        </article>
+
+        <article className="media-card">
+          <h2>
+            <Link className="page-link" to="/spinningpendulum">
+              Spinning Pendulum
+            </Link>
+          </h2>
+          <figure>
+            <img src={assetPath('spinning_pendulum.gif')} alt="Spherical Pendulum Motion" />
+            <figcaption>
               Simulation of a spinning pendulum I wrote in C, with plotting handled in Python.
             </figcaption>
           </figure>
-        </div>
+        </article>
 
-        <div style={{ flex: 1, textAlign: 'center', minWidth: '280px' }}>
-          <a className="page-link" href={assetPath('Galaxy_Collision.pdf')} style={{ fontSize: '24px', display: 'block', marginBottom: '10px' }}>
-            N-Body Simulation
-          </a>
-          <figure style={{ margin: 0 }}>
-            <video autoPlay muted loop playsInline style={{ width: '100%', maxHeight: '400px' }}>
+        <article className="media-card">
+          <h2>
+            <Link className="page-link" to="/nbodysimulation">
+              N-Body Simulation
+            </Link>
+          </h2>
+          <figure>
+            <video autoPlay muted loop playsInline>
               <source src={assetPath('BinaryCollision.mp4')} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <figcaption style={{ fontSize: '16px', color: '#111', textAlign: 'left', marginTop: '8px' }}>
+            <figcaption>
               N-body simulation utilizing a quadtree structure and multipole expansion for faster integration of gravitational interactions.
             </figcaption>
           </figure>
-        </div>
+        </article>
+
       </div>
     </div>
   );

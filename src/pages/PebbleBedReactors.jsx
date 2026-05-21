@@ -1,21 +1,21 @@
-import VtiViewer from '../components/VtiViewer';
+import PebbleCoreViewer from '../components/PebbleCoreViewer';
 import assetPath from '../utils/assetPath';
 
 function PebbleBedReactors() {
   return (
     <div>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ fontSize: '32px', margin: 0, color: '#111' }}>Pebble Bed Nuclear Reactors</h1>
+      <div className="page-header">
+        <h1>Pebble Bed Nuclear Reactors</h1>
       </div>
 
       <p>
         This page showcases my SULI work on modeling advanced pebble bed nuclear reactors. The project focuses on simulating the motion of pebbles as the reactor operates, and how the gamma spectrum evolves as the reactor operates. The poster below summarizes the simulation workflow, benchmarking, and design insights I presented during the program.
       </p>
 
-      <div style={{ textAlign: 'center', margin: '30px 0' }}>
+      <div>
         <iframe
           src={assetPath('Anderson_R_poster_final.pdf')}
-          style={{ width: '100%', height: '90vh' }}
+          className="document-frame"
           title="WDTS SULI Pebble Bed Poster"
         ></iframe>
         <p>
@@ -34,11 +34,11 @@ function PebbleBedReactors() {
         pebble packing effects, plus a sensitivity study on material choices for the reflector and moderator regions.
       </p>
 
-      <h2 style={{ marginTop: '40px', marginBottom: '20px', fontSize: '26px', color: '#111' }}>Interactive Core Geometry</h2>
+      <h2 className="section-title">Interactive Core Geometry</h2>
       <p>
-        Explore a slice of a simulated reactor core geometry directly below. The interactive window loads the VTI data used in my SULI analysis and provides a quick look at packing density and volume features.
+        Explore an OpenMC pebble-bed core directly below. The interactive view shows explicit pebble surfaces with neutron histories overlaid from the transport run.
       </p>
-      <VtiViewer height={500} />
+      <PebbleCoreViewer height={560} />
     </div>
   );
 }
