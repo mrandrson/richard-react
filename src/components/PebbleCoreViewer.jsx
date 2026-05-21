@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import 'vtk.js/Sources/Rendering/Profiles/Geometry';
+import 'vtk.js/Sources/Rendering/Profiles/Molecule';
 
 import vtkActor from 'vtk.js/Sources/Rendering/Core/Actor';
 import vtkCellArray from 'vtk.js/Sources/Common/Core/CellArray';
@@ -9,12 +10,67 @@ import vtkFullScreenRenderWindow from 'vtk.js/Sources/Rendering/Misc/FullScreenR
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 import vtkPolyData from 'vtk.js/Sources/Common/DataModel/PolyData';
 import vtkPolyDataReader from 'vtk.js/Sources/IO/Legacy/PolyDataReader';
+import vtkSphereMapper from 'vtk.js/Sources/Rendering/Core/SphereMapper';
 
-const pebblesUrl = `${import.meta.env.BASE_URL}data/pebbles.vtk`;
+const pebbleCentersUrl = `${import.meta.env.BASE_URL}data/pebble_centers.json`;
 const tracksUrl = `${import.meta.env.BASE_URL}data/neutron_tracks.vtk`;
 const animationMs = 12000;
 const frameMs = 90;
 const tailFraction = 0.18;
+
+async function loadPebbleCenters(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+
+  const data = await response.json();
+  if (!Array.isArray(data.pebbles) || data.pebbles.length === 0) {
+    throw new Error(`Unable to parse ${url}`);
+  }
+
+  return data.pebbles;
+}
+
+async function loadLegacyPolyData(reader, url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  }
+
+  const text = await response.text();
+  reader.parseAsText(text);
+
+  const output = reader.getOutputData();
+  if (!output) {
+    throw new Error(`Unable to parse ${url}`);
+  }
+
+  return output;
+}
+
+function makePebbleSphereData(pebbles) {
+  const points = new Float32Array(pebbles.length * 3);
+  const radii = new Float32Array(pebbles.length);
+
+  pebbles.forEach(([x, y, z, radius], index) => {
+    points[index * 3] = x;
+    points[index * 3 + 1] = y;
+    points[index * 3 + 2] = z;
+    radii[index] = radius;
+  });
+
+  const polyData = vtkPolyData.newInstance();
+  polyData.getPoints().setData(points, 3);
+  polyData.getPointData().setScalars(
+    vtkDataArray.newInstance({
+      name: 'radius',
+      values: radii,
+    })
+  );
+
+  return polyData;
+}
 
 function readTracks(polyData) {
   const pointValues = polyData.getPoints().getData();
@@ -92,6 +148,7 @@ function PebbleCoreViewer({ height = 560 }) {
   const containerRef = useRef(null);
   const contextRef = useRef(null);
   const [error, setError] = useState(null);
+  const [notice, setNotice] = useState(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -107,14 +164,13 @@ function PebbleCoreViewer({ height = 560 }) {
     const renderWindow = fullScreenRenderer.getRenderWindow();
     const glWindow = fullScreenRenderer.getApiSpecificRenderWindow();
 
-    const pebblesReader = vtkPolyDataReader.newInstance();
-    const pebblesMapper = vtkMapper.newInstance();
+    const pebblesMapper = vtkSphereMapper.newInstance();
     const pebblesActor = vtkActor.newInstance();
     pebblesActor.setMapper(pebblesMapper);
+    pebblesMapper.setScaleArray('radius');
+    pebblesMapper.setScaleFactor(0.92);
     pebblesActor.getProperty().setColor(0.72, 0.75, 0.72);
     pebblesActor.getProperty().setOpacity(0.34);
-    pebblesActor.getProperty().setEdgeVisibility(true);
-    pebblesActor.getProperty().setEdgeColor(0.23, 0.26, 0.25);
 
     const tracksReader = vtkPolyDataReader.newInstance();
     const tracksMapper = vtkMapper.newInstance();
@@ -123,56 +179,60 @@ function PebbleCoreViewer({ height = 560 }) {
     tracksActor.getProperty().setLineWidth(2);
     tracksActor.getProperty().setOpacity(0.24);
 
-    const loadPebbles = pebblesReader.setUrl(pebblesUrl).then(() => pebblesReader.loadData());
-    const loadTracks = tracksReader.setUrl(tracksUrl).then(() => tracksReader.loadData());
-
-    Promise.all([loadPebbles, loadTracks])
-      .then(() => {
-        const pebbles = pebblesReader.getOutputData();
-        const tracks = tracksReader.getOutputData();
-        if (!pebbles || !tracks) {
-          setError('Unable to load pebble core geometry.');
-          return;
-        }
-
-        pebblesMapper.setInputData(pebbles);
-        const trackHistories = readTracks(tracks);
-        const initialTrackData = makeAnimatedTrackData(trackHistories, 0.01);
-        tracksMapper.setInputData(initialTrackData);
-
-        const energy = tracks.getPointData()?.getArrayByName('energy_eV');
-        if (energy) {
-          const [min, max] = energy.getRange();
-          const span = max - min || 1;
-          const ctfun = vtkColorTransferFunction.newInstance();
-          ctfun.addRGBPoint(min, 0.16, 0.38, 0.88);
-          ctfun.addRGBPoint(min + span * 0.5, 0.98, 0.78, 0.24);
-          ctfun.addRGBPoint(max, 0.85, 0.18, 0.12);
-          tracksMapper.setLookupTable(ctfun);
-          tracksMapper.setScalarModeToUsePointData();
-          tracksMapper.setColorByArrayName('energy_eV');
-          tracksMapper.setScalarRange(min, max);
-        } else {
-          tracksActor.getProperty().setColor(0.9, 0.18, 0.12);
-        }
-
+    loadPebbleCenters(pebbleCentersUrl)
+      .then((pebbles) => {
+        pebblesMapper.setInputData(makePebbleSphereData(pebbles));
         renderer.addActor(pebblesActor);
-        renderer.addActor(tracksActor);
         renderer.resetCamera();
         renderWindow.render();
         setError(null);
 
-        const animate = () => {
-          if (!contextRef.current) {
-            return;
-          }
-          const progress = ((Date.now() % animationMs) / animationMs) || 0.01;
-          const animatedData = makeAnimatedTrackData(trackHistories, progress);
-          tracksMapper.setInputData(animatedData);
-          renderWindow.render();
-          contextRef.current.animationTimer = window.setTimeout(animate, frameMs);
-        };
-        animate();
+        loadLegacyPolyData(tracksReader, tracksUrl)
+          .then((tracks) => {
+            const trackHistories = readTracks(tracks);
+            if (trackHistories.length === 0) {
+              setNotice('Pebble geometry loaded. Neutron histories are unavailable in this browser session.');
+              return;
+            }
+
+            const initialTrackData = makeAnimatedTrackData(trackHistories, 0.01);
+            tracksMapper.setInputData(initialTrackData);
+
+            const energy = tracks.getPointData()?.getArrayByName('energy_eV');
+            if (energy) {
+              const [min, max] = energy.getRange();
+              const span = max - min || 1;
+              const ctfun = vtkColorTransferFunction.newInstance();
+              ctfun.addRGBPoint(min, 0.16, 0.38, 0.88);
+              ctfun.addRGBPoint(min + span * 0.5, 0.98, 0.78, 0.24);
+              ctfun.addRGBPoint(max, 0.85, 0.18, 0.12);
+              tracksMapper.setLookupTable(ctfun);
+              tracksMapper.setScalarModeToUsePointData();
+              tracksMapper.setColorByArrayName('energy_eV');
+              tracksMapper.setScalarRange(min, max);
+            } else {
+              tracksActor.getProperty().setColor(0.9, 0.18, 0.12);
+            }
+
+            renderer.addActor(tracksActor);
+            setNotice(null);
+            renderWindow.render();
+
+            const animate = () => {
+              if (!contextRef.current) {
+                return;
+              }
+              const progress = ((Date.now() % animationMs) / animationMs) || 0.01;
+              const animatedData = makeAnimatedTrackData(trackHistories, progress);
+              tracksMapper.setInputData(animatedData);
+              renderWindow.render();
+              contextRef.current.animationTimer = window.setTimeout(animate, frameMs);
+            };
+            animate();
+          })
+          .catch(() => {
+            setNotice('Pebble geometry loaded. Neutron histories are unavailable in this browser session.');
+          });
       })
       .catch(() => {
         setError('Unable to load pebble core geometry.');
@@ -188,15 +248,14 @@ function PebbleCoreViewer({ height = 560 }) {
 
     contextRef.current = {
       fullScreenRenderer,
-      pebblesReader,
       pebblesMapper,
       pebblesActor,
-        tracksReader,
-        tracksMapper,
-        tracksActor,
-        handleResize,
-        animationTimer: null,
-      };
+      tracksReader,
+      tracksMapper,
+      tracksActor,
+      handleResize,
+      animationTimer: null,
+    };
 
     return () => {
       if (contextRef.current) {
@@ -209,7 +268,6 @@ function PebbleCoreViewer({ height = 560 }) {
         contextRef.current.tracksReader.delete();
         contextRef.current.pebblesActor.delete();
         contextRef.current.pebblesMapper.delete();
-        contextRef.current.pebblesReader.delete();
         contextRef.current.fullScreenRenderer.delete();
         contextRef.current = null;
       }
@@ -244,6 +302,24 @@ function PebbleCoreViewer({ height = 560 }) {
           }}
         >
           {error}
+        </div>
+      ) : null}
+      {!error && notice ? (
+        <div
+          style={{
+            position: 'absolute',
+            left: 12,
+            right: 12,
+            bottom: 12,
+            padding: '10px 12px',
+            background: 'rgba(255,255,255,0.88)',
+            color: '#333',
+            fontSize: '0.88rem',
+            fontWeight: 600,
+            border: '1px solid #d8ddd8',
+          }}
+        >
+          {notice}
         </div>
       ) : null}
     </div>
