@@ -11,8 +11,8 @@ function About() {
         <a href="https://sites.google.com/view/kedron-silsbee" target="_blank" rel="noreferrer">
           Dr. Kedron Silsbee
         </a>{' '}
-        since then. During my undergraduate work I also worked on applications of deep learning to computer vision at the UTEP
-        Aerospace Center and contributed to the Neutrino and Rare Event Searches Group at UT Arlington through NEXT data
+        since then. During my undergraduate work I also contributed to the Neutrino and Rare Event Searches Group at
+        UT Arlington through NEXT data
         analysis and EFT studies with the nuDOBE package.
       </p>
       <p>

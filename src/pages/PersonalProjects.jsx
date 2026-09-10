@@ -5,8 +5,9 @@ function PersonalProjects() {
   return (
     <div>
       <div className="page-header">
-        <h1>Personal Projects</h1>
-        <p>Independent computational physics projects and numerical simulation work.</p>
+        <p className="section-kicker">Selected repositories</p>
+        <h1>Code & simulations</h1>
+        <p>Independent computational physics projects with working numerical models and visual results.</p>
       </div>
 
       <div className="media-grid">

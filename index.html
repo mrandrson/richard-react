@@ -2,34 +2,41 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Richard Anderson</title>
+    <title>Richard Anderson | Physics</title>
     <meta
       name="description"
-      content="Research and project portfolio for Richard Anderson, covering astrophysics, particle physics, and aerospace engineering."
+      content="Physics and mathematics graduate working toward quantum gravity and black hole information."
     />
+    <meta name="theme-color" content="#142127" />
+    <link rel="canonical" href="https://mrandrson.github.io/richard-react/" />
+    <meta property="og:title" content="Richard Anderson | Physics" />
+    <meta
+      property="og:description"
+      content="Physics and mathematics graduate working toward quantum gravity and black hole information."
+    />
+    <meta property="og:url" content="https://mrandrson.github.io/richard-react/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://mrandrson.github.io/richard-react/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Richard Anderson — Physics, Mathematics, Quantum Gravity" />
+    <meta name="twitter:card" content="summary_large_image" />
     <script>
-      window.MathJax = {
-        tex: {
-          inlineMath: [
-            ['$', '$'],
-            ['\\(', '\\)']
-          ],
-          displayMath: [
-            ['$$', '$$'],
-            ['\\[', '\\]']
-          ],
-          processEscapes: true,
-        },
-      };
+      (function restoreSpaPath(location) {
+        if (location.search.charAt(1) !== '/') return;
+
+        var decodedPath = location.search
+          .slice(1)
+          .split('&')
+          .map(function decodePathSegment(segment) {
+            return segment.replace(/~and~/g, '&');
+          })
+          .join('?');
+
+        window.history.replaceState(null, '', location.pathname.slice(0, -1) + decodedPath + location.hash);
+      })(window.location);
     </script>
-    <script
-      type="text/javascript"
-      id="MathJax-script"
-      async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-    ></script>
   </head>
   <body>
     <div id="root"></div>
