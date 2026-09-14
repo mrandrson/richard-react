@@ -44,7 +44,7 @@ function PlanetesimalProject() {
         <a href="https://sites.google.com/view/kedron-silsbee" target="_blank" rel="noreferrer">
           Dr. Kedron Silsbee
         </a>
-        , we use one-dimensional collapse models and numerical trajectory simulations to investigate the gravitational
+        , we use a one-dimensional collapse model and numerical simulations to investigate the gravitational
         capture of freely floating planetesimals by a collapsing prestellar core. Unlike gas drag, capture by the
         changing potential is independent of planetesimal size, allowing objects tens or hundreds of kilometers across
         to become bound. We estimate the number and largest size captured from a star’s birth cluster or the Galactic
@@ -76,10 +76,6 @@ function PlanetesimalProject() {
           \]`}
         </div>
 
-        <p>
-          This is analogous to the Integrated Sachs–Wolfe effect, in which photons are red- or blue-shifted as they cross
-          an evolving gravitational potential.
-        </p>
       </section>
 
       <section className="writeup-section" aria-labelledby="modeled-title">
@@ -118,9 +114,8 @@ function PlanetesimalProject() {
         <h2 id="results-title">Collapse Models and Capture Volumes</h2>
         <p>
           Each animation shows planetesimals passing through an evolving cloud, paired with the capture-volume curve from
-          the corresponding simulation suite. The left panel of each plot gives the capture volume, while the right panel
-          normalizes it by the cloud’s initial volume.
-        </p>
+          the corresponding simulation suite.         
+	</p>
 
         <SimulationPair
           model="Homogeneous Collapse"
@@ -147,7 +142,7 @@ function PlanetesimalProject() {
 
         <SimulationPair
           model="Shu Collapse"
-          description="The final stage of star formation is the accretion of material onto the young protostar. We model that stage using the self-similar “expansion-wave collapse solution” of Shu (1977), in which a central point mass grows with time inside a continuous, spherically symmetric envelope. Although the Larson solution approaches a 1/r² density profile and the Shu solution begins with one, their normalization constants differ by a factor of 4.4, so we treat them as separate models rather than two stages of the same process."
+          description="The final stage of star formation is the accretion of material onto the young protostar. We model that stage using the self-similar “expansion-wave collapse solution” of Shu (1977), in which a central point mass grows with time inside a continuous, spherically symmetric envelope. Although the Larson solution approaches a \(r^{-2}\) density profile and the Shu solution begins with one, their normalization constants differ by a factor of 4.4, so we treat them as separate models rather than two stages of the same process."
           animation="planetesimal-simulations/shu-trajectories.html"
           plot="planetesimal-shu-capture-volume.png"
           plotAlt="Shu-collapse capture volume versus initial planetesimal speed"
@@ -156,11 +151,11 @@ function PlanetesimalProject() {
 
         <p>
           Capture is strongly weighted toward slow encounters. Taking{' '}
-          <span>{String.raw`\(c_s=\sqrt{3.36\times10^4}\,\mathrm{m\,s^{-1}}\approx0.18\,\mathrm{km\,s^{-1}}\)`}</span>, the
+          <span>{String.raw`\(c_s=\sqrt{\mathscr{R}T}\,\approx0.18\,\mathrm{km\,s^{-1}}\)`}</span>, the
           highest sampled velocities with nonzero capture give conservative reported cutoffs of{' '}
           <span>{String.raw`\(5.2c_s\)`}</span> (0.95 km/s) for the Larson model and{' '}
           <span>{String.raw`\(1.2c_s\)`}</span> (0.22 km/s) for the Shu model. The idealized homogeneous model has no finite
-          cutoff: it can capture planetesimals with arbitrarily large <span>{String.raw`\(v_0\)`}</span>, although the
+          cutoff, and can capture planetesimals with arbitrarily large <span>{String.raw`\(v_0\)`}</span>, although the
           capture volume decreases steeply as <span>{String.raw`\(V_{\mathrm{capt}}\propto v_0^{-6}\)`}</span>.
         </p>
       </section>
