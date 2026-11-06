@@ -4,7 +4,7 @@ import assetPath from '../utils/assetPath';
 function PebbleBedReactors() {
   return (
     <div>
-      <div className="page-header">
+      <div className="page-header project-page-header">
         <h1>DEM–Monte Carlo Modeling of Burnup in a Pebble-Bed Reactor</h1>
       </div>
 

@@ -7,8 +7,11 @@ const projects = [
     path: '/pproject',
     meta: 'UTEP Astrophysics Theory Group · Dr. Kedron Silsbee · Aug 2022–May 2026',
     summary:
-      'Semi-analytic collapse models and REBOUND orbital simulations used to study when freely floating planetesimals are captured during star formation. Manuscript in preparation.',
-    resources: [{ label: 'Poster', href: assetPath('TAOAPS_Poster_3-3.pdf') }],
+      'Semi-analytic collapse models and REBOUND orbital simulations used to study when freely floating planetesimals are captured during star formation. Manuscript submitted.',
+    resources: [
+      { label: 'Poster', href: assetPath('TAOAPS_Poster_3-3.pdf') },
+      { label: 'Preprint', href: 'https://arxiv.org/abs/2611.00537' },
+    ],
   },
   {
     title: 'Pebble-bed reactor burnup modeling',

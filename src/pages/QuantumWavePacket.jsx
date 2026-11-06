@@ -7,9 +7,12 @@ function MathBlock({ children }) {
 function QuantumWavePacket() {
   return (
     <div>
-      <div className="page-header">
+      <div className="page-header project-page-header">
         <h1>Quantum Wave Packet Simulation</h1>
-        <p>A split-step Fourier simulation of the time-dependent Schrödinger equation in two spatial dimensions.</p>
+        <p>
+          I calculate the evolution of a two-dimensional quantum wave packet using the split-step Fourier method
+          to solve the time-dependent Schrödinger equation.
+        </p>
       </div>
 
       <figure className="media-card">
@@ -17,13 +20,16 @@ function QuantumWavePacket() {
           <source src={assetPath('quantumwave.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <figcaption>Time evolution of the probability density <span>{String.raw`\(|\psi(x,y,t)|^2\)`}</span>.</figcaption>
+        <figcaption>
+          Probability density <span>{String.raw`\(|\psi(x,y,t)|^2\)`}</span> as a function of time as the wave packet
+          scatters from the Gaussian potential barrier.
+        </figcaption>
       </figure>
 
       <section className="writeup-section">
         <h2>Equation</h2>
         <p>
-          The simulation evolves the time-dependent Schrödinger equation
+          I consider a wavefunction governed by the time-dependent Schrödinger equation,
         </p>
         <MathBlock>{String.raw`\[
 i\hbar\frac{\partial \psi}{\partial t}
@@ -33,16 +39,16 @@ i\hbar\frac{\partial \psi}{\partial t}
 V(x,y)\psi.
 \]`}</MathBlock>
         <p>
-          The code works in units where <span>{String.raw`\(\hbar=m=1\)`}</span> on a periodic two-dimensional domain.
-          The displayed quantity is the probability density <span>{String.raw`\(|\psi(x,y,t)|^2\)`}</span>.
+          I adopt units in which <span>{String.raw`\(\hbar=m=1\)`}</span> and impose periodic boundary conditions on
+          the two-dimensional domain. The animation shows the probability density{' '}
+          <span>{String.raw`\(|\psi(x,y,t)|^2\)`}</span>.
         </p>
       </section>
 
       <section className="writeup-section">
         <h2>Initial State</h2>
         <p>
-          The initial state is a localized Gaussian wave packet with a plane-wave phase factor. In the notebook this is
-          initialized proportional to
+          I take the initial state to be a localized Gaussian wave packet multiplied by a plane-wave phase factor:
         </p>
         <MathBlock>{String.raw`\[
 \psi(x,y,0)
@@ -53,9 +59,9 @@ V(x,y)\psi.
 \exp(i k_0 x).
 \]`}</MathBlock>
         <p>
-          The Gaussian envelope localizes the particle near <span>{String.raw`\((x_0,y_0)\)`}</span>, while the phase
-          factor gives the packet average momentum in the positive <span>{String.raw`\(x\)`}</span> direction. The
-          wavefunction is normalized so that
+          The Gaussian envelope localizes the probability density near <span>{String.raw`\((x_0,y_0)\)`}</span>,
+          while the phase factor gives the wave packet a mean momentum in the positive{' '}
+          <span>{String.raw`\(x\)`}</span> direction. I normalize the initial wavefunction on the numerical grid so that
         </p>
         <MathBlock>{String.raw`\[
 \sum_{i,j}|\psi_{ij}|^2\,\Delta x\,\Delta y = 1.
@@ -65,7 +71,7 @@ V(x,y)\psi.
       <section className="writeup-section">
         <h2>Potential</h2>
         <p>
-          The simulation uses a dimensionless smooth Gaussian barrier centered in the domain:
+          I assume a smooth Gaussian potential barrier centered in the domain, given in dimensionless form by
         </p>
         <MathBlock>{String.raw`\[
 V(x,y)
@@ -76,23 +82,24 @@ V_0
 \right).
 \]`}</MathBlock>
         <p>
-          As the packet reaches the barrier, part of the wave is transmitted and part is reflected, producing visible
-          scattering and interference in the probability density.
+          As the wave packet encounters the barrier, the wavefunction develops transmitted and reflected components.
+          The resulting scattering and interference appear in the evolution of the probability density.
         </p>
       </section>
 
       <section className="writeup-section">
         <h2>Split-Step Fourier Method</h2>
         <p>
-          On a periodic grid, Fourier modes diagonalize the Laplacian. For a plane wave{' '}
+          I evaluate the kinetic term in Fourier space, where the Laplacian is diagonal. For a plane-wave mode{' '}
           <span>{String.raw`\(\exp(i k_x x+i k_y y)\)`}</span>,
         </p>
         <MathBlock>{String.raw`\[
 \nabla^2 \longrightarrow -(k_x^2+k_y^2).
 \]`}</MathBlock>
         <p>
-          The Hamiltonian is split into kinetic and potential parts. Since these do not commute exactly, the code uses a
-          symmetric Strang splitting, with <span>{String.raw`\(k^2=k_x^2+k_y^2\)`}</span>:
+          I split the Hamiltonian into kinetic and potential terms. Since these operators do not commute, I
+          approximate the evolution over each time interval using symmetric Strang splitting. With{' '}
+          <span>{String.raw`\(k^2=k_x^2+k_y^2\)`}</span>, the update is
         </p>
         <MathBlock>{String.raw`\[
 \psi(t+\Delta t)
@@ -108,8 +115,9 @@ V_0
 \right].
 \]`}</MathBlock>
         <p>
-          The potential step is applied pointwise in real space, while the kinetic step is applied pointwise in Fourier
-          space. This makes each timestep efficient and preserves the wavefunction norm up to numerical precision.
+          I apply the potential evolution pointwise in physical space and the kinetic evolution pointwise in Fourier
+          space. This allows efficient evaluation of each timestep and preserves the wavefunction norm to numerical
+          precision.
         </p>
       </section>
     </div>

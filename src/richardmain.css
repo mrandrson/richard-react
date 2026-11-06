@@ -293,6 +293,11 @@ th {
   margin-bottom: 0.8rem;
 }
 
+.project-page-header h1 {
+  font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+  line-height: 1.2;
+}
+
 .page-header p:last-child {
   color: var(--muted);
   font-size: 1.08rem;
@@ -424,6 +429,10 @@ th {
   background: var(--surface-soft);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+
+.honors-strip + .honors-strip {
+  border-top: 0;
 }
 
 .honors-strip .section-kicker {
@@ -737,7 +746,8 @@ th {
 }
 
 .simulation-result-grid .simulation-frame {
-  height: min(72vh, 660px);
+  /* Trajectory viewers are a square canvas plus controls, so height tracks width. */
+  height: calc(97cqw + 140px);
   margin-top: 0;
   width: 100%;
   margin-left: 0;
@@ -751,6 +761,7 @@ th {
 }
 
 .simulation-frame-crop {
+  container-type: inline-size;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -787,9 +798,107 @@ th {
 }
 
 .compact-result-figure {
-  width: min(100%, 700px);
+  width: min(100%, 460px);
   margin-right: auto;
   margin-left: auto;
+}
+
+.planetesimal-project .project-authors {
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+.planetesimal-project .publication-status,
+.planetesimal-project .figure-note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.planetesimal-project .project-summary .project-links {
+  margin: 0.85rem 0 1.5rem;
+}
+
+.planetesimal-project .research-table-scroll {
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+.planetesimal-project table {
+  margin-bottom: 0;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.planetesimal-project th[scope="row"] {
+  background: transparent;
+}
+
+.planetesimal-project .leading-result-figure {
+  margin-top: 1.5rem;
+}
+
+.planetesimal-project .leading-result-figure > a {
+  display: block;
+  overflow-x: auto;
+}
+
+.planetesimal-project .leading-result-figure img {
+  min-width: 720px;
+  max-width: none;
+}
+
+.planetesimal-project .research-details {
+  margin: 1rem 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+}
+
+.planetesimal-project summary {
+  padding: 0.95rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.planetesimal-project summary:hover {
+  background: var(--surface-soft);
+}
+
+.planetesimal-project summary:focus-visible,
+.planetesimal-project .research-table-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.planetesimal-project .research-details-body {
+  padding: 0 1rem 1rem;
+}
+
+.planetesimal-project .capture-volume-figure {
+  width: min(100%, 620px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.planetesimal-project .capture-volume-figure img {
+  max-height: none;
+}
+
+.planetesimal-project .simulation-result-grid .capture-volume-figure {
+  width: 100%;
+  margin: 0;
+}
+
+.planetesimal-project .simulation-frame-crop {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.planetesimal-project .simulation-frame-crop .simulation-frame {
+  width: 100%;
+  height: calc(97cqw + 140px);
+  margin: 0;
+  border: 0;
 }
 
 .document-frame {

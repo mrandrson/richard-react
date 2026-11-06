@@ -3,7 +3,7 @@ import assetPath from '../utils/assetPath';
 function NextDataAnalysis() {
   return (
     <div>
-      <div className="page-header">
+      <div className="page-header project-page-header">
         <h1>Research with the NEXT Experiment</h1>
       </div>
 

@@ -57,6 +57,19 @@ function Home() {
         </figure>
       </section>
 
+      <section className="honors-strip" aria-labelledby="publications-title">
+        <p className="section-kicker" id="publications-title">
+          Publications
+        </p>
+        <p>
+          R. Anderson and K. Silsbee,{' '}
+          <a href="https://arxiv.org/abs/2611.00537" target="_blank" rel="noreferrer">
+            Gravitational Capture of Large Interstellar Planetesimals by Collapsing Prestellar Cores
+          </a>
+          , submitted (2026), arXiv:2611.00537
+        </p>
+      </section>
+
       <section className="honors-strip" aria-labelledby="honors-title">
         <p className="section-kicker" id="honors-title">
           Honors
@@ -85,6 +98,7 @@ function Home() {
               { label: 'Project', href: '/pproject' },
 	      // { label: 'Notebook', href: assetPath('Planetesimal_Homogeneous_Model.html'), external: true },
               { label: 'Poster', href: assetPath('TAOAPS_Poster_3-3.pdf'), external: true },
+              { label: 'Preprint', href: 'https://arxiv.org/abs/2611.00537', external: true },
             ]}
           >
             We use one-dimensional collapse models and REBOUND simulations to investigate the gravitational capture of

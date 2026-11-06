@@ -7,7 +7,7 @@ function MathBlock({ children }) {
 function NBodySimulation() {
   return (
     <div>
-      <div className="page-header">
+      <div className="page-header project-page-header">
         <h1>N-Body Simulation</h1>
         <p>
           A gravitational N-body solver using Störmer-Verlet integration, direct summation, and a Barnes-Hut quadtree
